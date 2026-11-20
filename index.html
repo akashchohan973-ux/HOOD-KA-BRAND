@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0A0A0A" />
+    <meta name="description" content="HOOD KA BRAND — Pehno Style, Jiyo Attitude. Trending streetwear, fashion, wedding styles and more." />
+    <title>HOOD KA BRAND — Pehno Style, Jiyo Attitude</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = { theme: { extend: { colors: { ink: '#0A0A0A', panel: '#141414', card: '#1A1A1A', neon: '#FFD400', sale: '#FF2D2D', wa: '#25D366' }, fontFamily: { display: ['Bebas Neue', 'sans-serif'], body: ['Poppins', 'sans-serif'] } } } };
+    </script>
+    <style>
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; scroll-padding-top: 82px; }
+      body { margin: 0; background: #0A0A0A; color: #fff; font-family: Poppins, sans-serif; }
+      .hide-scroll::-webkit-scrollbar { display: none; }
+      .hide-scroll { scrollbar-width: none; }
+      .hero-slide { background-size: cover; background-position: center; }
+      .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+      @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+      .marquee-track { animation: marquee 23s linear infinite; }
+      @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      const { useEffect, useMemo, useState } = React;
+      const PHONE = ''; // Add your WhatsApp/call number with country code, e.g. 919876543210
+      const WA_TEXT = 'Hi HOOD KA BRAND, Mujhe Ye Kapda Order Karna Hai';
+      const waLink = (message = WA_TEXT) => `https://wa.me/${PHONE}?text=${encodeURIComponent(message)}`;
+      const callLink = PHONE ? `tel:+${PHONE}` : 'tel:';
+      const boys = [
+        ['Oversized Drop Shoulder T-Shirt',399,799,'M, L, XL, XXL','https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=700&q=85'],
+        ['Premium Linen Shirt',699,1299,'White, Black, Beige','https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=700&q=85'],
+        ['Baggy Fit Denim Jeans',899,1799,'28 to 38','https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=700&q=85'],
+        ['Cargo Pants 6 Pocket',799,1499,'Multiple sizes','https://images.unsplash.com/photo-1517438476312-10d79c077509?auto=format&fit=crop&w=700&q=85'],
+        ['Printed Co-Ord Set',999,1999,'S to XXL','https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=700&q=85'],
+        ['Formal Blazer',1499,2999,'S to XXL','https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=700&q=85'],
+        ['Hoodie Winter Special',749,1499,'M, L, XL, XXL','https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=700&q=85','BESTSELLER'],
+        ['Kurta Pajama Set',899,1799,'S to XXL','https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=700&q=85'],
+        ['Sherwani Premium',2499,4999,'Multiple sizes','https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?auto=format&fit=crop&w=700&q=85'],
+        ['Track Pant + T-Shirt Combo',899,1599,'M, L, XL, XXL','https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=700&q=85'],
+        ['Denim Jacket',1099,2199,'S to XXL','https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=700&q=85'],
+        ['Checks Shirt Casual',549,999,'S to XXL','https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=700&q=85']
+      ];
+      const girls = [
+        ['Korean Style Oversized Top',449,899,'S, M, L, XL','https://images.unsplash.com/photo-1551163943-3f6a855d1153?auto=format&fit=crop&w=700&q=85'],
+        ['Baggy Jeans Girls',799,1599,'28 to 34','https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=700&q=85'],
+        ['Co-Ord Set Girls 2-Piece',899,1799,'S to XL','https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=700&q=85'],
+        ['Printed Kurti + Palazzo',699,1399,'S to XXL','https://images.unsplash.com/photo-1583391733956-6c78276477e3?auto=format&fit=crop&w=700&q=85'],
+        ['Anarkali Kurti Party Wear',1199,2499,'S to XXL','https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=700&q=85'],
+        ['Georgette Saree With Blouse',999,1999,'Free size','https://images.unsplash.com/photo-1610030469668-8e9f641aaf34?auto=format&fit=crop&w=700&q=85'],
+        ['Crop Top + Shrug',499,999,'S to XL','https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=700&q=85'],
+        ['Maxi Dress Summer',749,1499,'S to XL','https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=700&q=85'],
+        ['Denim Jacket Girls',899,1799,'S to XL','https://images.unsplash.com/photo-1548624149-f2b9c9b3c5a5?auto=format&fit=crop&w=700&q=85'],
+        ['Lehenga Choli Bridal',2999,5999,'Multiple sizes','https://images.unsplash.com/photo-1583391733981-849840c0c14b?auto=format&fit=crop&w=700&q=85'],
+        ['Palazzo Pant Set',599,1199,'S to XXL','https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=700&q=85'],
+        ['Frock / One Piece Dress',649,1299,'S to XL','https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=700&q=85']
+      ];
+      const slides = [
+        { eyebrow:'NEW DROP 2026', title:'OWN THE\nSTREET.', sub:'Oversized fits. Big energy. Your next look starts here.', image:'https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=1800&q=90', button:'SHOP THE DROP', offer:'JUST DROPPED' },
+        { eyebrow:'FESTIVAL DHAMAKA', title:'BUY 2\nGET 1 FREE', sub:'50% OFF on all hoodies. Your fit, your rules.', image:'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=1800&q=90', button:'GRAB THE OFFER', offer:'LIMITED OFFER' },
+        { eyebrow:'WEDDING SPECIAL', title:'DRESS TO\nMAKE AN ENTRANCE.', sub:'Premium Kurti, Saree & Sherwani Collection.', image:'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1800&q=90', button:'EXPLORE WEDDING', offer:'FESTIVE EDIT' }
+      ];
+      const money = n => '₹' + n.toLocaleString('en-IN');
+      function App() {
+        const [slide, setSlide] = useState(0), [query, setQuery] = useState(''), [searchOpen, setSearchOpen] = useState(false);
+        const [clock, setClock] = useState(new Date()), [remaining, setRemaining] = useState(2*60*60 + 14*60 + 33), [copied, setCopied] = useState('');
+        useEffect(() => { const t=setInterval(()=>setSlide(s=>(s+1)%slides.length),4000); return ()=>clearInterval(t); }, []);
+        useEffect(() => { const t=setInterval(()=>setClock(new Date()),1000); return ()=>clearInterval(t); }, []);
+        useEffect(() => { const t=setInterval(()=>setRemaining(s=>Math.max(0,s-1)),1000); return ()=>clearInterval(t); }, []);
+        const filter = list => list.filter(p=>p[0].toLowerCase().includes(query.toLowerCase()));
+        const copy = async(text,key) => { try { await navigator.clipboard.writeText(text); setCopied(key); setTimeout(()=>setCopied(''),1800); } catch { window.prompt('Copy this:',text); } };
+        const ist = new Date(clock.toLocaleString('en-US',{timeZone:'Asia/Kolkata'}));
+        const open = ist.getHours() >= 10 && ist.getHours() < 21;
+        const timer = `${String(Math.floor(remaining/3600)).padStart(2,'0')}:${String(Math.floor(remaining%3600/60)).padStart(2,'0')}:${String(remaining%60).padStart(2,'0')}`;
+        const priceRs = (n) => money(n);
+        return <>
+          <header className="sticky top-0 z-50 border-b border-white/10 bg-ink/95 backdrop-blur-md">
+            <div className="mx-auto flex h-[68px] max-w-7xl items-center justify-between px-4 sm:px-6">
+              <a href="#home" aria-label="HOOD KA BRAND home" className="leading-[.8]"><span className="block text-[22px] font-extrabold tracking-tight">HOOD KA</span><span className="font-display text-[18px] tracking-[.18em] text-neon">BRAND</span></a>
+              <div className="flex items-center gap-2">
+                {searchOpen && <input autoFocus value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search styles..." className="w-36 rounded-xl border border-white/20 bg-card px-3 py-2 text-xs outline-none focus:border-neon sm:w-52" />}
+                <button onClick={()=>setSearchOpen(!searchOpen)} aria-label="Search products" className="grid h-10 w-10 place-items-center rounded-xl border border-white/15 text-lg hover:border-neon">⌕</button>
+                <a href={callLink} className="rounded-xl bg-neon px-3 py-2.5 text-xs font-bold text-black sm:px-4">📞 <span className="hidden sm:inline">Call Now</span><span className="sm:hidden">Call</span></a>
+              </div>
+            </div>
+          </header>
+          <main id="home">
+            <section className="relative mx-auto max-w-[1440px] px-3 pt-3 sm:px-6 sm:pt-5">
+              <div className="hero-slide relative min-h-[450px] overflow-hidden rounded-2xl border border-white/10 sm:min-h-[560px]" style={{backgroundImage:`linear-gradient(90deg,rgba(0,0,0,.91) 0%,rgba(0,0,0,.65) 49%,rgba(0,0,0,.08) 100%),url('${slides[slide].image}')`}}>
+                <div className="absolute left-5 top-5 rounded-full bg-sale px-3 py-1 text-[10px] font-bold tracking-widest sm:left-10 sm:top-8 sm:text-xs">{slides[slide].offer}</div>
+                <div className="flex min-h-[450px] max-w-2xl flex-col justify-center px-6 pb-10 pt-16 sm:min-h-[560px] sm:px-12">
+                  <p className="mb-3 text-xs font-bold tracking-[.32em] text-neon sm:text-sm">{slides[slide].eyebrow}</p>
+                  <h1 className="whitespace-pre-line font-display text-6xl leading-[.88] tracking-wide sm:text-8xl md:text-9xl">{slides[slide].title}</h1>
+                  <p className="mt-5 max-w-sm text-sm text-white/75 sm:text-base">{slides[slide].sub}</p>
+                  <a href={slide===2?'#girls':'#boys'} className="mt-7 w-fit rounded-xl bg-neon px-6 py-3 text-xs font-extrabold tracking-wider text-black transition hover:bg-white">{slides[slide].button} <span aria-hidden="true">↗</span></a>
+                </div>
+                <div className="absolute bottom-5 right-5 flex gap-2 sm:bottom-8 sm:right-8">{slides.map((_,i)=><button key={i} onClick={()=>setSlide(i)} aria-label={`Go to slide ${i+1}`} className={`h-2 rounded-full transition-all ${slide===i?'w-8 bg-neon':'w-2 bg-white/50'}`} />)}</div>
+              </div>
+            </section>
+            <div className="mt-3 overflow-hidden border-y border-neon/20 bg-neon py-2.5 text-black"><div className="marquee-track flex w-max whitespace-nowrap text-[10px] font-extrabold tracking-widest sm:text-xs">{Array(4).fill('FREE HOME DELIVERY IN DHOLAKPUR  •  EASY EXCHANGE  •  CASH ON DELIVERY AVAILABLE  •  ').map((x,i)=><span key={i}>{x}</span>)}</div></div>
+            <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14">
+              <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+                {[["👕","Ladko Ke Liye","#boys"],["🛍️","Ladkiyo Ke Liye","#girls"],["🧥","Hoodies & Streetwear","#boys"],["✨","Wedding Special","#girls"]].map(([icon,label,href])=><a href={href} key={label} className="group flex flex-col items-center gap-3 rounded-2xl border border-white/10 bg-card px-3 py-5 text-center transition hover:border-neon/60 sm:py-7"><span className="grid h-14 w-14 place-items-center rounded-full border border-neon/30 bg-black text-2xl transition group-hover:bg-neon group-hover:text-black">{icon}</span><span className="text-xs font-semibold sm:text-sm">{label}</span></a>)}
+              </div>
+            </section>
+            <ProductSection id="boys" title="🔥 Trending Fashion - Ladko Ke Liye" sub="Sabse zyada bikne wale styles, best price me" products={filter(boys)} />
+            <ProductSection id="girls" title="💃 Trending Fashion - Ladkiyo Ke Liye" sub="Instagram Trending Collection - Har week naya stock" products={filter(girls)} />
+            <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
+              <div className="relative overflow-hidden rounded-2xl border border-sale/50 bg-gradient-to-br from-[#4a0808] via-[#d71920] to-[#710c12] px-5 py-9 text-center sm:px-10 sm:py-12">
+                <span className="rounded-full border border-white/40 px-3 py-1 text-[10px] font-bold tracking-[.2em]">⚡ BIGGEST DEAL OF THE SEASON</span>
+                <h2 className="mt-4 font-display text-5xl leading-none sm:text-7xl">BUY 2 GET 1 FREE</h2>
+                <p className="mt-3 text-sm font-semibold sm:text-lg">Har Second Item Pe 50% OFF</p>
+                <p className="mt-1 text-xs text-white/75">Offer Till Sunday</p>
+                <div className="mx-auto mt-5 w-fit rounded-xl bg-black/35 px-5 py-3"><p className="text-[9px] font-bold tracking-[.25em] text-white/70">OFFER ENDS IN</p><p className="font-display text-4xl tracking-widest text-neon" aria-live="polite">{timer}</p></div>
+                <a href={waLink('Hi HOOD KA BRAND, I want to know about the Buy 2 Get 1 offer')} target="_blank" rel="noreferrer" className="mt-5 inline-block rounded-xl bg-white px-6 py-3 text-xs font-extrabold text-black">CLAIM YOUR OFFER ↗</a>
+              </div>
+            </section>
+            <section className="mx-auto max-w-7xl px-4 py-9 sm:px-6 sm:py-12"><SectionHeading eyebrow="THE HOOD PROMISE" title="Why Shop From Us?"/><div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">{[["✅","Best Quality","Guarantee"],["🔄","7 Days Easy","Exchange"],["🚚","Free Home","Delivery"],["💵","Cash On","Delivery"]].map(([i,a,b])=><div key={a} className="rounded-2xl border border-white/10 bg-card p-4 text-center sm:p-6"><span className="text-3xl">{i}</span><p className="mt-3 text-sm font-bold">{a}</p><p className="text-xs text-white/55">{b}</p></div>)}</div></section>
+            <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12"><SectionHeading eyebrow="REAL PEOPLE, REAL STYLE" title="The Word on the Street"/><div className="mt-6 grid gap-3 md:grid-cols-3">{[["Hoodie ki quality ekdum premium hai, price market se kam hai","Rohan","Dholakpur"],["Ladkiyo ka collection bahut trending hai","Priya","Phurphuri Nagar"],["Delivery fast hai, kapda same photo jaisa aaya","Aman","Dholakpur"]].map(([quote,name,place])=><article key={name} className="rounded-2xl border border-white/10 bg-card p-5"><div className="text-sm tracking-widest text-neon">★★★★★</div><p className="mt-3 text-sm leading-6 text-white/80">“{quote}”</p><p className="mt-5 text-xs font-bold">{name} <span className="font-normal text-white/50">· {place}</span></p></article>)}</div></section>
+            <section className="mx-auto max-w-7xl px-4 py-10 pb-24 sm:px-6 sm:py-14 sm:pb-24" id="visit"><SectionHeading eyebrow="COME SAY HI" title="Visit Our Shop - HOOD KA BRAND"/><div className="mt-5 flex items-center gap-2 rounded-full border border-wa/25 bg-wa/10 px-4 py-3 text-xs font-bold text-wa sm:w-fit"><span className={`h-2 w-2 rounded-full ${open?'bg-wa':'bg-sale'}`}></span>{open?'OPEN NOW':'CLOSED'} • TILL 9:00 PM <span className="ml-auto font-medium text-white sm:ml-3">{ist.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true})}</span></div>
+              <div className="mt-4 grid gap-3 md:grid-cols-2">
+                <div className="rounded-2xl border border-white/10 bg-card p-5 sm:p-6"><p className="text-[10px] font-bold tracking-[.2em] text-white/45">FIND US HERE</p><p className="mt-3 font-display text-3xl tracking-wide text-neon">DHOLAKPUR, PHURPHURI NAGAR</p><div className="mt-4 flex gap-2"><button onClick={()=>copy('DHOLAKPUR, PHURPHURI NAGAR','address')} className="rounded-xl border border-white/15 px-4 py-2 text-[10px] font-bold">{copied==='address'?'COPIED ✓':'COPY'}</button><a target="_blank" rel="noreferrer" href="https://www.google.com/maps/search/?api=1&query=Dholakpur%2C+Phurphuri+Nagar" className="rounded-xl bg-neon px-4 py-2 text-[10px] font-bold text-black">DIRECTION ↗</a></div></div>
+                <div className="rounded-2xl border border-white/10 bg-card p-5 sm:p-6"><p className="text-[10px] font-bold tracking-[.2em] text-white/45">STORE HOURS</p><p className="mt-3 text-sm font-semibold">Monday - Sunday</p><p className="mt-1 text-sm text-white/65">10:00 AM - 9:00 PM</p><p className="mt-4 text-xs text-white/40">Open every day for your next favourite fit.</p></div>
+                <div className="rounded-2xl border border-white/10 bg-card p-5 sm:p-6"><p className="text-[10px] font-bold tracking-[.2em] text-white/45">CALL / WHATSAPP</p><p className="mt-3 text-lg font-bold">{PHONE?`+${PHONE}`:'[YOUR PHONE]'}</p><div className="mt-4 flex flex-wrap gap-2"><a href={callLink} className="rounded-xl bg-neon px-4 py-2 text-[10px] font-bold text-black">CALL</a><a href={waLink()} target="_blank" rel="noreferrer" className="rounded-xl bg-wa px-4 py-2 text-[10px] font-bold text-black">WHATSAPP</a><button onClick={()=>copy(PHONE?`+${PHONE}`:'[YOUR PHONE]','phone')} className="rounded-xl border border-white/15 px-4 py-2 text-[10px] font-bold">{copied==='phone'?'COPIED ✓':'COPY'}</button></div></div>
+                <div className="rounded-2xl border border-white/10 bg-card p-5 sm:p-6"><p className="text-[10px] font-bold tracking-[.2em] text-white/45">FOLLOW THE DROP</p><p className="mt-3 text-lg font-bold">@akash_007</p><a href="https://instagram.com/akash_007" target="_blank" rel="noreferrer" className="mt-4 inline-block rounded-xl border border-neon px-4 py-2 text-[10px] font-bold text-neon">FOLLOW ↗</a></div>
+              </div>
+            </section>
+          </main>
+          <footer className="border-t border-white/10 px-4 py-6 pb-24 text-center text-[10px] text-white/45 sm:pb-6">© 2026 HOOD KA BRAND - Dholakpur, Phurphuri Nagar. All Rights Reserved.</footer>
+          <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 border-t border-white/15 shadow-[0_-8px_30px_rgba(0,0,0,.4)] sm:hidden"><a href={callLink} className="flex items-center justify-center gap-2 bg-neon py-4 text-xs font-extrabold text-black">📞 Call Now</a><a href={waLink()} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 bg-wa py-4 text-xs font-extrabold text-black">💬 WhatsApp Order</a></div>
+        </>;
+      }
+      function SectionHeading({eyebrow,title}) { return <div><p className="text-[9px] font-bold tracking-[.3em] text-neon">{eyebrow}</p><h2 className="mt-1 font-display text-4xl leading-none sm:text-5xl">{title}</h2></div>; }
+      function ProductSection({id,title,sub,products}) { return <section id={id} className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12"><SectionHeading eyebrow="FRESH FITS. EVERY DAY." title={title}/><p className="mt-2 text-xs text-white/55 sm:text-sm">{sub}</p>{products.length ? <div className="hide-scroll mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">{products.map((p,i)=><article key={p[0]} className="group overflow-hidden rounded-2xl border border-white/10 bg-card transition hover:-translate-y-1 hover:border-white/30"><div className="relative aspect-[4/5] overflow-hidden bg-[#222]"><img src={p[4]} alt={p[0]} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" onError={e=>{e.currentTarget.src='https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=700&q=80'}}/>{p[5]&&<span className="absolute left-2 top-2 rounded-full bg-neon px-2 py-1 text-[8px] font-extrabold text-black">{p[5]}</span>}<span className="absolute right-2 top-2 rounded-full bg-sale px-2 py-1 text-[8px] font-bold">SALE</span></div><div className="p-3"><h3 className="line-clamp-2 min-h-[36px] text-[11px] font-semibold leading-[18px] sm:text-xs">{p[0]}</h3><div className="mt-2 flex items-baseline gap-1.5"><span className="text-sm font-extrabold text-neon">{money(p[1])}</span><del className="text-[9px] text-white/40">{money(p[2])}</del></div><p className="mt-1 line-clamp-2 min-h-[27px] text-[9px] text-white/45">Size / options: {p[3]}</p><a href={waLink(`Hi HOOD KA BRAND, Mujhe ${p[0]} order karna hai`)} target="_blank" rel="noreferrer" className="mt-3 block rounded-xl bg-neon py-2.5 text-center text-[9px] font-extrabold text-black transition hover:bg-white">ORDER ON WHATSAPP</a></div></article>)}</div> : <p className="mt-5 rounded-xl border border-white/10 bg-card p-5 text-sm text-white/60">No styles match “{document.querySelector('input')?.value || ''}”. Try another search.</p>}</section>; }
+      ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+  </body>
+</html>
